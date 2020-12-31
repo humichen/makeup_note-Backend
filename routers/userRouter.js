@@ -23,6 +23,7 @@ userRouter.post(
           _id: user._id,
           name: user.name,
           email: user.email,
+          password:user.password,
           isAdmin: user.isAdmin,
           year: user.year,
           month: user.month,
@@ -54,6 +55,7 @@ userRouter.post(
       _id: createdUser._id,
       name: createdUser.name,
       email: createdUser.email,
+      password:createdUser.password,
       isAdmin: createdUser.isAdmin,
       year: createdUser.year,
       month: createdUser.month,
@@ -64,8 +66,9 @@ userRouter.post(
 );
 //改資料
 userRouter.put(
-  "/updateprofile",
+  "/profile/:id",
   expressAsyncHandler(async (req, res) => {
+      const user = await User.findById({_id: req.params.id});
       const { name, email, password, year, month, day, sex } = req.body;
       User.findOneAndUpdate({_id: req.params.id}, {
         "name":name,
@@ -81,8 +84,19 @@ userRouter.put(
         }
         console.log(doc);
       });
-      const allprofile = await User.find({});
-      res.send(allprofile);
+      // const allprofile = await User.find({});
+      const updatedUser = await user.save();
+      res.send({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+        password:updatedUser.password,
+        year:updatedUser.year,
+        month:updatedUser.month,
+        day:updatedUser.day,
+        sex:updatedUser.sex,
+      });
     })
 );
 
