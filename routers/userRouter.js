@@ -23,7 +23,7 @@ userRouter.post(
           _id: user._id,
           name: user.name,
           email: user.email,
-          password:user.password,
+          password: user.password,
           isAdmin: user.isAdmin,
           year: user.year,
           month: user.month,
@@ -55,7 +55,7 @@ userRouter.post(
       _id: createdUser._id,
       name: createdUser.name,
       email: createdUser.email,
-      password:createdUser.password,
+      password: createdUser.password,
       isAdmin: createdUser.isAdmin,
       year: createdUser.year,
       month: createdUser.month,
@@ -68,36 +68,34 @@ userRouter.post(
 userRouter.put(
   "/profile/:id",
   expressAsyncHandler(async (req, res) => {
-      const user = await User.findById({_id: req.params.id});
-      const { name, email, password, year, month, day, sex } = req.body;
-      User.findOneAndUpdate({_id: req.params.id}, {
-        "name":name,
-        "email":email,
-        "password":password,
-        "year":year,
-        "month":month,
-        "day":day,
-        "sex":sex,
-      }, {new: true}, (err, doc) => {
-        if (err) {
-            console.log("Something wrong when updating data!");
-        }
-        console.log(doc);
-      });
-      // const allprofile = await User.find({});
-      const updatedUser = await user.save();
-      res.send({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        isAdmin: updatedUser.isAdmin,
-        password:updatedUser.password,
-        year:updatedUser.year,
-        month:updatedUser.month,
-        day:updatedUser.day,
-        sex:updatedUser.sex,
-      });
-    })
+    const { name, email, password, year, month, day, sex } = req.body;
+    User.findOneAndUpdate({ _id: req.params.id }, {
+      "name": name,
+      "email": email,
+      "password": password,
+      "year": year,
+      "month": month,
+      "day": day,
+      "sex": sex,
+    }, { new: true }, (err, doc) => {
+      if (err) {
+        console.log("Something wrong when updating data!");
+      }
+      console.log(doc);
+    });
+    const user = await User.findById({ _id: req.params.id });
+    res.send({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      password: user.password,
+      year: user.year,
+      month: user.month,
+      day: user.day,
+      sex: user.sex,
+    });
+  })
 );
 
 module.exports = userRouter;
