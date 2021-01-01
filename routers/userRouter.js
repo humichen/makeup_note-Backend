@@ -3,6 +3,7 @@ const expressAsyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const User = require('../models/userModel');
 const userRouter = express.Router();
+const { getToken, isAuth } = require("../util");
 
 userRouter.get(
   "/seed",
@@ -30,6 +31,7 @@ userRouter.post(
           month: user.month,
           day: user.day,
           sex: user.sex,
+          token: getToken(user),
         });
         return;
       }
@@ -62,12 +64,14 @@ userRouter.post(
       month: createdUser.month,
       day: createdUser.day,
       sex: createdUser.sex,
+      token: getToken(user),
     });
   })
 );
 //改資料
 userRouter.put(
   "/profile/:id",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const { name, email, password, year, month, day, sex } = req.body;
     // password = bcrypt.hashSync(req.body.password, 8);
@@ -97,6 +101,7 @@ userRouter.put(
       month: user.month,
       day: user.day,
       sex: user.sex,
+      token: getToken(user),
     });
   })
 );
