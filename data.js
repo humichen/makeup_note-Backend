@@ -27,9 +27,6 @@ const data = {
       ],
     },
   ],
-  makeups: [
-    
-  ],
   makeupsdata: [
     {
       "title":"PONY EFFECT 極水透光氣墊粉餅",
@@ -55,9 +52,6 @@ const data = {
         "color_choose":["OC0W","OC00","OC10","OC20","PO10"],
         "color_code_choose":["EBC29D","E6B993","E0B28A","DFB189","E7BD9A"]
     }
-  ],
-  methods: [
-    
-  ],
+  ]
 };
 module.exports = data;
