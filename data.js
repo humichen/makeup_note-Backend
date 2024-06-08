@@ -26,6 +26,18 @@ const data = {
     
       ],
     },
+    {
+      name: "Dtd2",
+      email: "user3@example.com",
+      password: bcrypt.hashSync("1234", 8),
+      isAdmin: false,
+      makeups: [
+    
+      ],
+      methods: [
+    
+      ],
+    },
   ],
   makeupsdata: [
     {
